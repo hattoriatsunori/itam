@@ -47,6 +47,7 @@ func getDevices(c echo.Context) error {
 	Db.Find(&devices)
 	return c.JSON(http.StatusOK, devices)
 }
+
 func getDevice(c echo.Context) error {
 	var device Device
 	id := c.Param("id")
@@ -54,21 +55,34 @@ func getDevice(c echo.Context) error {
 	if err != nil {
 		return c.String(http.StatusBadRequest, "id is not integer")
 	}
-
 	Db.First(&device, idint)
 	return c.JSON(http.StatusOK, device)
 }
+
 func addDevice(c echo.Context) error {
 	device := new(Device)
 	if err := c.Bind(device); err != nil {
-		return err
+		return c.String(http.StatusBadRequest, "bad request")
 	}
 	Db.Create(&device)
 	return c.JSON(http.StatusOK, device)
 }
+
 func updateDevice(c echo.Context) error {
-	return c.String(http.StatusOK, "updateDevice")
+	var device Device
+	id := c.Param("id")
+	idint, err := strconv.Atoi(id)
+	if err != nil {
+		return c.String(http.StatusBadRequest, "id is not integer")
+	}
+	Db.First(&device, idint)
+	if err := c.Bind(&device); err != nil {
+		return c.String(http.StatusBadRequest, "bad request")
+	}
+	Db.Save(&device)
+	return c.JSON(http.StatusOK, device)
 }
+
 func deleteDevice(c echo.Context) error {
 	return c.String(http.StatusOK, "deleteDevice")
 }
