@@ -31,7 +31,7 @@ func main() {
 
 	e := echo.New()
 	e.GET("/", func(c echo.Context) error {
-		return c.String(http.StatusOK, "Hello, World!")
+		return c.String(http.StatusOK, "Hello, world!")
 	})
 	e.GET("/devices", getDevices)
 	e.GET("/devices/:id", getDevice)
