@@ -84,5 +84,11 @@ func updateDevice(c echo.Context) error {
 }
 
 func deleteDevice(c echo.Context) error {
-	return c.String(http.StatusOK, "deleteDevice")
+	id := c.Param("id")
+	idint, err := strconv.Atoi(id)
+	if err != nil {
+		return c.String(http.StatusBadRequest, "id is not integer")
+	}
+	Db.Delete(&Device{}, idint)
+	return c.String(http.StatusOK, "deleted")
 }
