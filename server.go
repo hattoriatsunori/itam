@@ -11,8 +11,16 @@ import (
 
 type Device struct {
 	gorm.Model
-	SerialNumber string `json:"serial_number"`
-	Notation     string `json:"notation"`
+	Type             string `json:"type"`
+	SerialNumber     string `json:"serial_number"`
+	RegistrationDate string `json:"registration_date"`
+	TransferDate     string `json:"transfer_date"`
+	DepartmentCode   string `json:"department_code"`
+	UsageStatus      string `json:"usage_status"`
+	OS               string `json:"os"`
+	IPAddress        string `json:"ip_address"`
+	Notation         string `json:"notation"`
+	SequenceNumber   string `json:"sequence_number"`
 }
 
 var Db *gorm.DB
