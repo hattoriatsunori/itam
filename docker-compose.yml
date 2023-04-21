@@ -1,0 +1,23 @@
+version: "3.8"
+services:
+  app:
+    image: golang:1.20.3-alpine3.17
+    command: sh -c "go run server.go"
+    ports:
+      - 8080:8080
+    working_dir: /app
+    volumes:
+      - ./:/app
+    depends_on:
+      - db
+  db:
+    image: mysql:8.0.33
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql
+      MYSQL_DATABASE: itam
+    volumes:
+      - db:/var/lib/mysql
+volumes:
+  db:
