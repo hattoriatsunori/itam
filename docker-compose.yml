@@ -10,6 +10,17 @@ services:
       - ./:/app
     depends_on:
       - db
+  react:
+    image: node:20.0.0-alpine3.17
+    command: sh -c "cd react-app && npm start"
+    ports:
+      - 3000:3000
+    working_dir: /app
+    volumes:
+      - ./react:/app
+    tty: true
+    depends_on:
+      - app
   db:
     image: mysql:8.0.33
     ports:
@@ -21,3 +32,4 @@ services:
       - db:/var/lib/mysql
 volumes:
   db:
+  
