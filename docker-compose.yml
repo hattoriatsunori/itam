@@ -1,11 +1,11 @@
 version: "3.8"
 services:
   app:
-    image: golang:1.20.3-alpine3.17
-    command: sh -c "go run server.go"
+    build:
+      context: .
+      dockerfile: ./Dockerfile
     ports:
       - 8080:8080
-    working_dir: /app
     volumes:
       - ./:/app
     depends_on:
